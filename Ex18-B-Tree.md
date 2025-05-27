@@ -1,51 +1,60 @@
-# Ex18 B-Tree
+# Ex17 AVL Tree – Rotation
 
 ## AIM:
-To write a C function to delete an element in a B Tree.
+To write a C function to perform right rotation in an AVL Tree.
+
 ## Algorithm
 1. Start 
-2. Try to delete the item from the node using delValFromNode. If not found, print "Not 
-present" and return. 
-3. If the node's count is 0 after deletion, set tmp to the current node and update myNode to its 
-first linker child. 
-4. Free the tmp node. 
-5. Update the global root to the new myNode. 
-6. Return after deletion. 
-7. End
+2. Set y to the left child of x. 
+3. Set the left child of x to be the right child of y. 
+4. Set the right child of y to be x. 
+5. Update the height of x and y. 
+6. Return y as the new root after rotation. 
+7. End    
+
 ## Program:
 ```
 /*
-Program to write a C function to delete an element in a B Tree
+Program to perform right rotation in AVL Tree
 
 
 */
-struct BTreeNode { 
-int item[MAX + 1], count; 
-struct BTreeNode *linker[MAX + 1]; 
-}; 
-struct BTreeNode *root;*/ 
-void delete (int item, struct BTreeNode *myNode) { 
-struct BTreeNode *tmp; 
-if (!delValFromNode(item, myNode)) { 
-printf("Not present\n"); 
-return; 
-} else { 
-if (myNode->count == 0) { 
-tmp = myNode; 
-myNode = myNode->linker[0]; 
-free(tmp); 
-} 
-} 
-root = myNode; 
-return; 
-} 
-
+typedef struct node 
+{ 
+int data; 
+struct node *left,*right; 
+int ht; 
+}node; 
+node *insert(node *,int); 
+//node *Delete(node *,int); 
+void preorder(node *); 
+//void inorder(node *); 
+int height( node *); 
+node *rotateright(node *); 
+node *rotateleft(node *); 
+node *RR(node *); 
+node *LL(node *); 
+node *LR(node *); 
+node *RL(node *); 
+*/ 
+node * rotateright(node *x) 
+{ 
+node *y; 
+y=x->left; 
+x->left=y->right; 
+y->right=x; 
+  
+  
+x->ht=height(x); 
+y->ht=height(y); 
+return(y); 
+}
 ```
 
 ## Output:
 
-![image](https://github.com/user-attachments/assets/4337d84e-40d5-4e66-9d1b-0e8e43202319)
+![image](https://github.com/user-attachments/assets/5e840f3f-3740-4675-ae94-19bc624dd200)
 
 
 ## Result:
-Thus, the C function to delete an element in a B Tree is implemented successfully.
+Thus, the function to perform right rotation in an AVL Tree is implemented successfully.
